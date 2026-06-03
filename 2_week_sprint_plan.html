@@ -1,0 +1,131 @@
+
+<style>
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.task{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;cursor:pointer;transition:border-color .15s}
+.task:hover{border-color:var(--color-border-secondary)}
+.task-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.task-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.task-day{font-size:11px;color:var(--color-text-tertiary);margin-top:5px}
+.col{display:flex;flex-direction:column;gap:6px}
+.wk{font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.07em;margin-bottom:8px}
+.sync{border:0.5px solid var(--color-border-success);background:var(--color-background-success);border-radius:var(--border-radius-md);padding:9px 12px;display:flex;align-items:flex-start;gap:8px;margin:12px 0}
+.sync i{font-size:16px;color:var(--color-text-success);margin-top:1px;flex-shrink:0}
+.sync-text{font-size:12px;color:var(--color-text-success);line-height:1.5}
+.sync-label{font-weight:500}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dev-head{display:flex;align-items:center;gap:9px}
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0}
+.av-blue{background:var(--color-background-info);color:var(--color-text-info)}
+.av-amber{background:var(--color-background-warning);color:var(--color-text-warning)}
+.dev-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.dev-sub{font-size:11px;color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">2-week sprint plan for 2-person team building a Telebirr marketplace app</h2>
+
+<div style="padding:.5rem 0">
+
+  <div class="grid" style="margin-bottom:14px;padding-bottom:12px;border-bottom:0.5px solid var(--color-border-tertiary)">
+    <div class="dev-head">
+      <div class="avatar av-blue">D1</div>
+      <div>
+        <div class="dev-name">Dev 1 · Backend</div>
+        <div class="dev-sub">Express · Prisma · PostgreSQL</div>
+      </div>
+    </div>
+    <div class="dev-head">
+      <div class="avatar av-amber">D2</div>
+      <div>
+        <div class="dev-name">Dev 2 · Frontend</div>
+        <div class="dev-sub">Telebirr Mini-App · SDK · UI</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wk">WEEK 1</div>
+  <div class="grid">
+    <div class="col">
+      <div class="task" onclick="sendPrompt('What should the Express project structure look like for this marketplace app?')">
+        <div class="task-title">Project setup</div>
+        <div class="task-desc">Express app, folder structure from GEMINI.md, Prisma + Postgres config, .env, base error handler</div>
+        <div class="task-day">Days 1–2</div>
+      </div>
+      <div class="task" onclick="sendPrompt('Write the Prisma schema for the marketplace app with users, listings, transactions, and reviews')">
+        <div class="task-title">Prisma schema + Auth API</div>
+        <div class="task-desc">All 4 models + initial migration. POST /auth/register, POST /auth/login, JWT middleware</div>
+        <div class="task-day">Days 3–4</div>
+      </div>
+      <div class="task" onclick="sendPrompt('Help me build the Listings CRUD API with search and filter support')">
+        <div class="task-title">Listings CRUD API</div>
+        <div class="task-desc">5 endpoints: create, list (search + filter by subject/exam type), get by id, update, soft delete</div>
+        <div class="task-day">Day 5</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="task" onclick="sendPrompt('How do I set up a Telebirr mini-app project from scratch including routing and API client?')">
+        <div class="task-title">Mini-app setup</div>
+        <div class="task-desc">Telebirr SDK init, routing/navigation, API client (base URL + auth header), design tokens</div>
+        <div class="task-day">Days 1–2</div>
+      </div>
+      <div class="task" onclick="sendPrompt('Help me build the auth screens for the marketplace mini-app with role selection')">
+        <div class="task-title">Auth screens</div>
+        <div class="task-desc">Login, register + role picker (Sharer / Taker / Both), token storage, post-login redirect</div>
+        <div class="task-day">Days 3–4</div>
+      </div>
+      <div class="task" onclick="sendPrompt('Help me build the home and discovery screen for a listings marketplace mini-app')">
+        <div class="task-title">Home + Discovery</div>
+        <div class="task-desc">Listings feed, search + filter bar, listing card component — use mock data until API is ready</div>
+        <div class="task-day">Day 5</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sync">
+    <i class="ti ti-git-merge" aria-hidden="true"></i>
+    <span class="sync-text"><span class="sync-label">End of Week 1 sync —</span> Auth + Listings API is live. Dev 2 swaps mock data for real API calls. Both test together.</span>
+  </div>
+
+  <div class="wk">WEEK 2</div>
+  <div class="grid">
+    <div class="col">
+      <div class="task" onclick="sendPrompt('Help me build the transaction API with platform cut calculation for the marketplace')">
+        <div class="task-title">Transaction API</div>
+        <div class="task-desc">Initiate, get status, confirm endpoints. Platform cut calculation service (cut % from .env)</div>
+        <div class="task-day">Days 1–2</div>
+      </div>
+      <div class="task" onclick="sendPrompt('How do I integrate the Telebirr payment API for initiating payments and handling callbacks?')">
+        <div class="task-title">Telebirr payment integration</div>
+        <div class="task-desc">POST /payments/initiate, POST /payments/callback (webhook handler), sync status to transactions</div>
+        <div class="task-day">Days 3–4</div>
+      </div>
+      <div class="task" onclick="sendPrompt('Help me build the reviews API and auto-update the user rating average')">
+        <div class="task-title">Reviews + bug fixes</div>
+        <div class="task-desc">POST /reviews, GET /users/:id/reviews, update user rating_avg. Fix bugs from integration testing</div>
+        <div class="task-day">Day 5</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="task" onclick="sendPrompt('Help me build the listing detail screen and create listing form for the mini-app')">
+        <div class="task-title">Listing detail + Create listing</div>
+        <div class="task-desc">Taker's listing detail view. Sharer's create listing form (subject, exam type, price, description)</div>
+        <div class="task-day">Day 1</div>
+      </div>
+      <div class="task" onclick="sendPrompt('Help me build the transaction and Telebirr payment flow UI in the mini-app')">
+        <div class="task-title">Transaction + Payment flow UI</div>
+        <div class="task-desc">Book/initiate CTA, Telebirr native payment trigger, payment pending / success / error screens</div>
+        <div class="task-day">Days 2–3</div>
+      </div>
+      <div class="task" onclick="sendPrompt('Help me build the profile screens and review form for the marketplace mini-app')">
+        <div class="task-title">Profile + Polish</div>
+        <div class="task-desc">Sharer earnings screen, Taker order history, leave-a-review form, final UI polish</div>
+        <div class="task-day">Days 4–5</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sync" style="margin-top:12px">
+    <i class="ti ti-flag-check" aria-hidden="true"></i>
+    <span class="sync-text"><span class="sync-label">End of Week 2 —</span> Full end-to-end test together. Run the full flow: create listing → pay → confirm → leave review.</span>
+  </div>
+
+</div>
