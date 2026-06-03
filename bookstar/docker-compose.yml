@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  bookstar:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - LOG_LEVEL=info
+      - TELLBIRR_API_URL=${TELLBIRR_API_URL}
+      - TELLBIRR_API_KEY=${TELLBIRR_API_KEY}
+      - TELLBIRR_APP_ID=${TELLBIRR_APP_ID}
+      - TELLBIRR_APP_SECRET=${TELLBIRR_APP_SECRET}
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/v1/health/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+    networks:
+      - bookstar-network
+
+networks:
+  bookstar-network:
+    driver: bridge
